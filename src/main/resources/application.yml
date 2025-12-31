@@ -1,0 +1,11 @@
+spring:
+  application:
+   name: deployment
+
+
+aws:
+  s3:
+    access.key: xxx
+    access.pwd: xxx
+    region: xxx
+    bucket: xxx
