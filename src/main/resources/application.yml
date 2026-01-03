@@ -1,11 +1,6 @@
 spring:
   application:
-   name: deployment
+   name: s3Practice
+  profiles:
+    active: local
 
-
-aws:
-  s3:
-    access.key: xxx
-    access.pwd: xxx
-    region: xxx
-    bucket: xxx

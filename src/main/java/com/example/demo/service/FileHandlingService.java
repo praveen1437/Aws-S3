@@ -29,9 +29,6 @@ public class FileHandlingService {
 
     public FileUploadResponse uploadFile(MultipartFile multipartFile) throws FileUploadException {
         try {
-            if(true) {
-                throw new RuntimeException("Test");
-            }
             PutObjectResponse putObjectResponse = s3Client.putObject(PutObjectRequest.builder().bucket(bucketName)
                     .key(multipartFile.getOriginalFilename()).build(), RequestBody.fromBytes(multipartFile.getBytes()));
             String fileUrl = String.format(
@@ -45,7 +42,7 @@ public class FileHandlingService {
         } catch (Exception e) {
             String fileName = multipartFile.getOriginalFilename();
             log.error("Exception occurred while uploading file, file name : {}", fileName, e);
-            throw new FileUploadException("UPLOAD_FAILED" ,fileName, e.getMessage());
+            throw new FileUploadException("UPLOAD_FAILED" ,e.getMessage(), fileName);
         }
     }
 

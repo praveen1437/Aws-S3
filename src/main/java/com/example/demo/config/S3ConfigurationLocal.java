@@ -1,17 +1,19 @@
 package com.example.demo.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
-import software.amazon.awssdk.awscore.client.builder.AwsClientBuilder;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 
 @Configuration
-public class S3Configuration {
+@Profile("local")
+@Slf4j
+public class S3ConfigurationLocal {
 
     @Value("${aws.s3.access.key}")
     private String accessKey;
@@ -21,7 +23,9 @@ public class S3Configuration {
     private String region;
 
     @Bean
+    @Profile("local")
     public S3Client s3Client() {
+        log.info("creating s3Client for local");
         AwsBasicCredentials awsBasicCredentials = AwsBasicCredentials.create(accessKey, passWord);
         return S3Client.builder()
                 .region(Region.of(region))
@@ -29,9 +33,4 @@ public class S3Configuration {
                 .build();
     }
 
-    @Bean
-    public S3Presigner s3Presigner() {
-        return S3Presigner.builder()
-                .region(Region.of(region)).build();
-    }
 }

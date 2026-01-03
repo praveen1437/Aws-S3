@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: s3Practice
+
+aws:
+  s3:
+    access.key: xxx
+    access.pwd: xxx
+    region: xxx
+    bucket: xxx
